@@ -1,0 +1,53 @@
+class Solution {
+  public:
+    void solve(vector<int> &arr , int start , int end, int mid){
+         vector<int> vec;
+         
+         int low = start;
+         int high = mid + 1;
+         
+         while(low <= mid && high <= end){
+              if(arr[low] <= arr[high]){
+                  vec.push_back(arr[low]);
+                  low++;
+              }
+              else{
+                 vec.push_back(arr[high]);
+                 high++;
+              }
+         }
+         
+         while(low <= mid){
+             vec.push_back(arr[low]);
+             low++;
+         }
+         
+         while(high <= end){
+             vec.push_back(arr[high]);
+             high++;
+         }
+         
+         for(int i = start ;i<=end;i++){
+             arr[i] = vec[i - start];
+         }
+    }
+    void merge(vector<int> &arr , int start , int end){
+        int mid = (start + end) / 2;
+        
+         if(start >= end){
+             return;
+         }
+         
+         merge(arr , start , mid);
+         merge(arr , mid + 1 , end);
+         
+         solve(arr , start , end , mid);
+    }
+    void mergeSort(vector<int>& arr, int l, int r) {
+        // code here
+        int low = 0;
+        int high = r;
+        
+        merge(arr, low , high);
+    }
+};
